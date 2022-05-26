@@ -17,6 +17,7 @@ exports.getPortfolio = async (req, res) => {
 exports.addNewItem = async (req, res) => {
     try {
         const item = await Item.create(req.body);
+        // console.log(req.body);
         res.redirect('/');
         // res.status(200).render('index');
     } catch (error) {
@@ -47,8 +48,8 @@ exports.addNewItem = async (req, res) => {
         console.log(req.body);
         
         const item = await Item.findOne({id:req.params.id});
-        item.brand = req.body.brand;
-        item.sector = req.body.sector;
+        item.title = req.body.title;
+        item.description = req.body.description;
         item.image = req.body.image;
         item.save();
         res.redirect('/');

@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
-  brand: {
+  title: {
     type: String,
     unique: true,
     required: true
   },
-  sector: {
+  description: {
     type: String,
     required: true
   },

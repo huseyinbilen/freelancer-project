@@ -63,50 +63,63 @@
                 </div>
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
+                    <% for(let i = 0; i < items.length; i++) { %>
                     <!-- Portfolio Item 1-->
                     <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal<%= items[i].id %>">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/cabin.png" alt="..." />
+                            <img class="img-fluid" src="<%= items[i].image %>" alt="..." />
                         </div>
                     </div>
-                </div>
-            </div>
                     <!-- Portfolio Modals-->
-        <!-- Portfolio Modal 1-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                    <div class="modal-body text-center pb-5">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
-                                    <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
-                                    <!-- Icon Divider-->
-                                    <div class="divider-custom">
-                                        <div class="divider-custom-line"></div>
-                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                                        <div class="divider-custom-line"></div>
+                    <!-- Portfolio Modal 1-->
+                    <div class="portfolio-modal modal fade" id="portfolioModal<%= items[i].id %>" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                <div class="modal-body text-center pb-5">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-8">
+                                                <!-- Portfolio Modal - Title-->
+                                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0"><%= items[i].title %></h2>
+                                                <!-- Icon Divider-->
+                                                <div class="divider-custom">
+                                                    <div class="divider-custom-line"></div>
+                                                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                                    <div class="divider-custom-line"></div>
+                                                </div>
+                                                <!-- Portfolio Modal - Image-->
+                                                <img class="img-fluid rounded mb-5" src="<%= items[i].image %>" alt="..." />
+                                                <!-- Portfolio Modal - Text-->
+                                                <p class="mb-4"><%= items[i].description %></p>
+                                                <form method="POST" action="items/<%= items[i].id %>?_method=PUT">
+                                                    <input type="text" name="title" value="<%= items[i].title %>">
+                                                    <input type="text" name="description" value="<%= items[i].description %>">
+                                                    <input type="text" name="image" value="<%= items[i].image %>">
+                                                    <button class="btn btn-primary" data-bs-dismiss="modal">
+                                                        <i class="fa-solid fa-arrow-rotate-right"></i>
+                                                        Update Project
+                                                    </button>
+                                                </form>
+                                                <form method="POST" action="items/<%= items[i].id %>?_method=DELETE">
+                                                    <button class="btn btn-warning" data-bs-dismiss="modal">
+                                                        <i class="fas fa-xmark fa-fw"></i>
+                                                        Delete Project
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- Portfolio Modal - Image-->
-                                    <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="..." />
-                                    <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                                    <button class="btn btn-primary" data-bs-dismiss="modal">
-                                        <i class="fas fa-xmark fa-fw"></i>
-                                        Close Window
-                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
-        </div>
         </section>
         <!-- Contact Section-->
         <section class="page-section" id="contact">
@@ -129,7 +142,7 @@
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <form id="contactForm" method="POST" action="/add">
                             <!-- Title input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="title" name="title" type="text" placeholder="Enter Title ..." data-sb-validations="required" />
@@ -138,7 +151,7 @@
                             </div>
                             <!-- Description input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="description" name="description type="text" placeholder="Enter Description ..." data-sb-validations="required" />
+                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter Description ..." data-sb-validations="required" />
                                 <label for="description">Title Name</label>
                                 <div class="invalid-feedback" data-sb-feedback="name:required">Description is required.</div>
                             </div>
